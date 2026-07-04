@@ -2,89 +2,296 @@
 <html>
 <head>
     <title>URL Dashboard</title>
+
     <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
         body {
-            font-family: Arial;
+            margin: 0;
+            padding: 40px;
+            font-family: Arial, sans-serif;
             background: #0f172a;
             color: white;
-            padding: 20px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
         }
 
         h1 {
             color: #38bdf8;
+            text-align: center;
+            margin-bottom: 25px;
+            font-size: 34px;
+        }
+
+        .nav-buttons {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 35px;
+            flex-wrap: wrap;
+        }
+
+        .btn-nav {
+            background: #111827;
+            color: #38bdf8;
+            text-decoration: none;
+            padding: 12px 20px;
+            border-radius: 10px;
+            font-weight: bold;
+            transition: 0.2s;
+            border: 1px solid #334155;
+        }
+
+        .btn-nav:hover {
+            background: #38bdf8;
+            color: #0f172a;
+            transform: translateY(-2px);
         }
 
         .box {
             background: #1e293b;
-            padding: 15px;
-            margin: 10px 0;
-            border-radius: 10px;
+            padding: 25px;
+            border-radius: 14px;
+            margin-bottom: 30px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.35);
+        }
+
+        h2 {
+            margin-top: 0;
+            margin-bottom: 20px;
+            text-align: center;
+            color: white;
+            font-size: 24px;
         }
 
         table {
             width: 100%;
             border-collapse: collapse;
-            margin-top: 10px;
-        }
-
-        th, td {
-            padding: 10px;
-            border-bottom: 1px solid #334155;
         }
 
         th {
             color: #38bdf8;
+            font-size: 15px;
+            font-weight: bold;
+            padding: 15px;
+            border-bottom: 2px solid #334155;
+            text-align: center;
+        }
+
+        td {
+            padding: 16px;
+            border-bottom: 1px solid #334155;
+            text-align: center;
+            vertical-align: middle;
+        }
+
+        tr:hover {
+            background: rgba(255,255,255,0.03);
         }
 
         .badge {
             background: #22c55e;
-            padding: 5px 10px;
+            padding: 6px 14px;
             border-radius: 8px;
+            font-weight: bold;
+            display: inline-block;
+            min-width: 45px;
         }
+
+        .url {
+            max-width: 420px;
+            margin: auto;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .short-link {
+            background: #0f172a;
+            color: #38bdf8;
+            padding: 8px 14px;
+            border-radius: 8px;
+            text-decoration: none;
+            display: inline-block;
+            transition: 0.2s;
+        }
+
+        .short-link:hover {
+            background: #111827;
+            transform: scale(1.03);
+        }
+
+        .actions {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .btn {
+            border: none;
+            padding: 8px 14px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: 0.2s;
+        }
+
+        .btn-copy {
+            background: #38bdf8;
+            color: #0f172a;
+        }
+
+        .btn-copy:hover {
+            background: #0ea5e9;
+        }
+
+        .btn-open {
+            background: #22c55e;
+            color: white;
+        }
+
+        .btn-open:hover {
+            background: #16a34a;
+        }
+
+        @media (max-width: 768px) {
+            body { padding: 15px; }
+
+            .box { padding: 15px; }
+
+            table { font-size: 13px; }
+
+            th, td { padding: 10px; }
+
+            .actions { flex-direction: column; }
+
+            .url { max-width: 180px; }
+
+            .btn-nav { width: 100%; text-align: center; }
+        }
+
     </style>
 </head>
 
 <body>
 
-<h1>📊 Dashboard de Links</h1>
+<div class="container">
 
-<div class="box">
-    <h2>🏆 TOP 5 Links</h2>
+    <h1>📊 Dashboard de Links</h1>
+
+    <div class="nav-buttons">
+
+        <a href="/" class="btn-nav">🏠 Início</a>
+
+        <a href="/dashboard" class="btn-nav">📊 Dashboard</a>
+
+        <a href="/links" class="btn-nav">🔗 Meus Links</a>
+
+        <a href="/ranking" class="btn-nav">🏆 Ranking</a>
+
+    </div>
+
+    <div class="box">
+
+        <h2>🏆 TOP 5 Links</h2>
+
+        <table>
+            <tr>
+                <th>Short</th>
+                <th>URL</th>
+                <th>Clicks</th>
+            </tr>
+
+            <tr th:each="l : ${ranking}">
+
+                <td>
+                    <a class="short-link"
+                       th:href="@{'/' + ${l.shortCode}}"
+                       th:text="${l.shortCode}"
+                       target="_blank">
+                    </a>
+                </td>
+
+                <td>
+                    <div class="url" th:text="${l.originalUrl}"></div>
+                </td>
+
+                <td>
+                    <span class="badge" th:text="${l.clicks}"></span>
+                </td>
+
+            </tr>
+        </table>
+
+    </div>
+
+    <div class="box">
+
+    <h2>📋 Meus Links</h2>
 
     <table>
         <tr>
             <th>Short</th>
             <th>URL</th>
             <th>Clicks</th>
-        </tr>
-
-        <tr th:each="l : ${ranking}">
-            <td th:text="${l.shortCode}"></td>
-            <td th:text="${l.originalUrl}"></td>
-            <td><span class="badge" th:text="${l.clicks}"></span></td>
-        </tr>
-    </table>
-</div>
-
-<div class="box">
-    <h2>📋 Todos os Links</h2>
-
-    <table>
-        <tr>
-            <th>ID</th>
-            <th>Short</th>
-            <th>URL</th>
-            <th>Clicks</th>
+            <th>Ações</th>
         </tr>
 
         <tr th:each="l : ${links}">
-            <td th:text="${l.id}"></td>
-            <td th:text="${l.shortCode}"></td>
-            <td th:text="${l.originalUrl}"></td>
+
+            <td>
+                <a class="short-link"
+                   th:href="@{'/' + ${l.shortCode}}"
+                   th:text="${l.shortCode}"
+                   target="_blank">
+                </a>
+            </td>
+
+            <td>
+                <div class="url" th:text="${l.originalUrl}"></div>
+            </td>
+
             <td th:text="${l.clicks}"></td>
+
+            <td>
+                <div class="actions">
+
+                    <button class="btn btn-copy"
+                            th:attr="onclick=|copyLink('${l.shortCode}')|">
+                        📋 Copiar
+                    </button>
+
+                    <a th:href="@{'/' + ${l.shortCode}}" target="_blank">
+                        <button class="btn btn-open">
+                            🔗 Abrir
+                        </button>
+                    </a>
+
+                </div>
+            </td>
+
         </tr>
+
     </table>
+
 </div>
+
+<script>
+function copyLink(code) {
+    const link = window.location.origin + "/" + code;
+    navigator.clipboard.writeText(link);
+    alert("Link copiado!");
+}
+</script>
 
 </body>
 </html>

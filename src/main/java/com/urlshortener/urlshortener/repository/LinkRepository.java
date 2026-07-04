@@ -13,10 +13,11 @@ public interface LinkRepository extends JpaRepository<Link, Long> {
 
     Optional<Link> findByShortCode(String shortCode);
 
+    List<Link> findByUserId(String userId);
+
+    List<Link> findTop5ByUserIdOrderByClicksDesc(String userId);
+
     @Modifying
     @Query("UPDATE Link l SET l.clicks = l.clicks + 1 WHERE l.shortCode = :code")
     void incrementClicks(@Param("code") String code);
-
-    // 🔥 TOP 5 ranking direto no banco
-    List<Link> findTop5ByOrderByClicksDesc();
 }

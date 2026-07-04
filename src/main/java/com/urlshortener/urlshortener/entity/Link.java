@@ -1,7 +1,6 @@
 package com.urlshortener.urlshortener.entity;
 
 import jakarta.persistence.*;
-
 import java.time.LocalDateTime;
 
 @Entity
@@ -13,12 +12,11 @@ public class Link {
     private Long id;
 
     private String originalUrl;
-
     private String shortCode;
-
     private int clicks = 0;
-
     private LocalDateTime createdAt = LocalDateTime.now();
+
+    private String userId;
 
     public Long getId() {
         return id;
@@ -54,5 +52,13 @@ public class Link {
 
     public void setCreatedAt(LocalDateTime createdAt) {
         this.createdAt = createdAt;
+    }
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 }

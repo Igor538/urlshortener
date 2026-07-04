@@ -18,36 +18,30 @@ public class LinkService {
         this.repository = repository;
     }
 
-    // criar link
-    public Link encurtar(String originalUrl) {
+    public Link encurtar(String originalUrl, String userId) {
+
         Link link = new Link();
+
         link.setOriginalUrl(originalUrl);
         link.setShortCode(gerarCodigo());
         link.setClicks(0);
+        link.setUserId(userId);
 
         return repository.save(link);
     }
 
-    // buscar
     public Optional<Link> buscar(String code) {
         return repository.findByShortCode(code);
     }
 
-    // listar todos
-    public List<Link> listarTodos() {
-        return repository.findAll();
+    public List<Link> listarPorUsuario(String userId) {
+        return repository.findByUserId(userId);
     }
 
-    // ranking TOP 5
-    public List<Link> rankingTop5() {
-        return repository.findAll()
-                .stream()
-                .sorted((a, b) -> Integer.compare(b.getClicks(), a.getClicks()))
-                .limit(5)
-                .toList();
+    public List<Link> rankingTop5(String userId) {
+        return repository.findTop5ByUserIdOrderByClicksDesc(userId);
     }
 
-    // incrementa clicks no banco
     @Transactional
     public void incrementarClicks(String code) {
         repository.incrementClicks(code);
