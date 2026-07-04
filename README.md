@@ -118,12 +118,12 @@ git clone https://github.com/SEU-USUARIO/urlshortener.git
 cd urlshortener
 ```
 
-Configure o `application.properties`:
+Configure o seu `application.properties`:
 
 ```properties
-spring.datasource.url=jdbc:postgresql://localhost:5432/urlshortener
-spring.datasource.username=postgres
-spring.datasource.password=postgres
+spring.datasource.url=${DB_URL}
+spring.datasource.username=${DB_USER}
+spring.datasource.password=${DB_PASS}
 ```
 
 Execute:
@@ -131,9 +131,3 @@ Execute:
 ```bash
 ./mvnw spring-boot:run
 ```
-
----
-
-## 👨‍💻 Autor
-
-Projeto desenvolvido por **Igor Moraes** 🚀
