@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>URL Dashboard</title>
+    <style>
+        body {
+            font-family: Arial;
+            background: #0f172a;
+            color: white;
+            padding: 20px;
+        }
+
+        h1 {
+            color: #38bdf8;
+        }
+
+        .box {
+            background: #1e293b;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 10px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        th, td {
+            padding: 10px;
+            border-bottom: 1px solid #334155;
+        }
+
+        th {
+            color: #38bdf8;
+        }
+
+        .badge {
+            background: #22c55e;
+            padding: 5px 10px;
+            border-radius: 8px;
+        }
+    </style>
+</head>
+
+<body>
+
+<h1>📊 Dashboard de Links</h1>
+
+<div class="box">
+    <h2>🏆 TOP 5 Links</h2>
+
+    <table>
+        <tr>
+            <th>Short</th>
+            <th>URL</th>
+            <th>Clicks</th>
+        </tr>
+
+        <tr th:each="l : ${ranking}">
+            <td th:text="${l.shortCode}"></td>
+            <td th:text="${l.originalUrl}"></td>
+            <td><span class="badge" th:text="${l.clicks}"></span></td>
+        </tr>
+    </table>
+</div>
+
+<div class="box">
+    <h2>📋 Todos os Links</h2>
+
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>Short</th>
+            <th>URL</th>
+            <th>Clicks</th>
+        </tr>
+
+        <tr th:each="l : ${links}">
+            <td th:text="${l.id}"></td>
+            <td th:text="${l.shortCode}"></td>
+            <td th:text="${l.originalUrl}"></td>
+            <td th:text="${l.clicks}"></td>
+        </tr>
+    </table>
+</div>
+
+</body>
+</html>
