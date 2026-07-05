@@ -90,14 +90,6 @@ GET /ranking
 
 ---
 
-## 🖥️ Interface Web
-
-A aplicação também possui uma interface simples para encurtar links via formulário:
-
-https://urlshortener-7g5s.onrender.com/shorten-ui
-
----
-
 ## 🗄️ Banco de Dados
 
 O projeto usa PostgreSQL hospedado no Render.  
