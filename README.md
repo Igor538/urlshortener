@@ -106,7 +106,7 @@ DB_PASS
 ## 📦 Como rodar localmente
 
 ```bash
-git clone https://github.com/SEU-USUARIO/urlshortener.git
+git clone https://github.com/Igor538/urlshortener.git
 cd urlshortener
 ```
 
